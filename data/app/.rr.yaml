@@ -1,0 +1,30 @@
+version: '2.7'
+rpc:
+  listen: tcp://127.0.0.1:6001
+
+server:
+  command: "php -dopcache.enable=1 -dopcache.enable_cli=1 public/runtime_index.php"
+  env:
+    - APP_RUNTIME: Baldinof\RoadRunnerBundle\Runtime\Runtime
+
+http:
+  address: 0.0.0.0:81
+  middleware: ["http_metrics"]
+  pool:
+    num_workers: 8
+    supervisor:
+      max_worker_memory: 128
+
+metrics:
+  address: "0.0.0.0:9091"
+
+logs:
+  mode: development
+  channels:
+    http:
+      level: debug # Log all http requests, set to info to disable
+    server:
+      level: info # Everything written to worker stderr is logged
+      mode: raw
+    metrics:
+      level: debug

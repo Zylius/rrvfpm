@@ -1,0 +1,16 @@
+baldinof_road_runner:
+    # When the kernel should be rebooted.
+    # See https://github.com/baldinof/roadrunner-bundle#kernel-reboots
+    kernel_reboot:
+        strategy: on_exception
+        allowed_exceptions:
+            - Symfony\Component\HttpKernel\Exception\HttpExceptionInterface
+            - Symfony\Component\Serializer\Exception\ExceptionInterface
+            - Symfony\Contracts\HttpClient\Exception\ExceptionInterface
+
+
+    # We use our own metrics interface.
+    metrics:
+        enabled: false
+
+    middlewares: []

@@ -1,0 +1,45 @@
+version: "3"
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "81:80"
+    networks:
+      - internal
+    volumes:
+      - ./data/:/var/www/html/
+  php:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+    entrypoint: ["bash", "-c", "composer -d /var/www/html/app install && php-fpm"]
+    networks:
+      - internal
+    volumes:
+      - ./data/:/var/www/html/
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 100M
+  roadrunner:
+    build:
+      context: .
+      dockerfile: roadrunner/Dockerfile
+    entrypoint: ["bash", "-c", "until [ -d /var/www/html/app/vendor ]; do sleep 3; done && rr serve -c /var/www/html/app/.rr.yaml"]
+    networks:
+      - internal
+    ports:
+      - "82:81"
+    volumes:
+      - ./data/:/var/www/html/
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 100M # memory limit to underscore the discrepancy between fpm and roadrunner memory usage
+networks:
+  internal:
+    driver: bridge
