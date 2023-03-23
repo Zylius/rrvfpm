@@ -22,8 +22,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
-          memory: 100M
+          cpus: '4'
+          memory: 200M
   roadrunner:
     build:
       context: .
@@ -38,8 +38,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
-          memory: 100M # memory limit to underscore the discrepancy between fpm and roadrunner memory usage
+          cpus: '4'
+          memory: 200M # memory limit to underscore the discrepancy between fpm and roadrunner memory usage
 networks:
   internal:
     driver: bridge

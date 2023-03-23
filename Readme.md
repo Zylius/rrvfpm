@@ -1,11 +1,17 @@
 # Project dedicated to analyze differences between FPM and RR speed in various situations
 
+## Configuration
+
+By default these tests use 32 constant FPM processes and 16 RR workers.
+
+Memory is filled up after a simple test with these configs.
+
 ## Results
 Currently collected results can be found [here](https://docs.google.com/spreadsheets/d/1xRe-D5CHS_ZLAHNUtCxDFvOSnV66ihs2UW-Mwc35oms/edit?usp=sharing).
 
 ## How to stress test
 
-The program used to stress test was WRK. Example commands:
+The program used to stress test was [WRK](https://github.com/wg/wrk). Example commands:
 
 For FPM with blocking:
 ```shell

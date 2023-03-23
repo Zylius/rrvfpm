@@ -11,7 +11,7 @@ http:
   address: 0.0.0.0:81
   middleware: ["http_metrics"]
   pool:
-    num_workers: 8
+    num_workers: 16
     supervisor:
       max_worker_memory: 128
 
